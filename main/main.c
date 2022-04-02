@@ -7,7 +7,7 @@
 
 #include "include/ssd1306.h"
 #include "include/font8x8_basic.h"
-
+#include "include/controller.h"
 
 void app_main(void)
 {
@@ -15,6 +15,7 @@ void app_main(void)
 	int center, top, bottom;
 	char lineChar[20];
 
+	init_controller();
 	
 	i2c_master_init(&dev, CONFIG_SDA_GPIO, CONFIG_SCL_GPIO, CONFIG_RESET_GPIO);
 	ssd1306_init(&dev, 128, 32);
@@ -49,5 +50,11 @@ void app_main(void)
 
 	ssd1306_fadeout(&dev);
 	
-	esp_restart();
+	
+	//esp_restart();
+	while (1)
+	{
+		vTaskDelay(10);
+	}
+	
 }
